@@ -12,4 +12,8 @@ class cartModel extends Model
     protected $fillable = [
         'quantity', 'desc', 'product_id'
     ];
+
+    public function productModel(){
+        
+    }
 }
