@@ -30,3 +30,5 @@ Route::delete('/delProduct/{id}', [productController::class, 'delProduct']);
 // Cart
 Route::get('/getCart', [cartController::class, 'getCart']);
 Route::post('/addCart', [cartController::class, 'addCart']);
+Route::delete('/delCart/{id}', [cartController::class, 'delcart']);
+Route::put('/editCart/{id}', [cartController::class, 'editCart']);

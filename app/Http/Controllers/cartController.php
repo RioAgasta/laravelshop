@@ -9,15 +9,16 @@ class cartController extends Controller
 {
     //
     public function getCart(){
-        // $products = cartModel::latest()->get();
-        // $products=cartModel::select('cart_models.*')->join('product_models','product_models.id','=','cart_models.product_id')->get();
-        // $products=productModel::select('product_models.*')->join('cart_models','cart_models.product_id','=','product_models.id')->get();
-        
-        $products = cartModel::join('product_models', 'product_models.id', '=', 'cart_models.product_id')->select('cart_models.*','product_models.*')->get();
+        $cart = cartModel::latest()->get()->load(['productModel']);
+
+        // $cart=cartModel::select('cart_models.*')->join('product_models','product_models.id','=','cart_models.product_id')->get();
+        // $cart=productModel::select('product_models.*')->join('cart_models','cart_models.product_id','=','product_models.id')->get();
+        // $cart = cartModel::join('product_models', 'product_models.id', '=', 'cart_models.product_id')->select('cart_models.*','product_models.*')->get()->load(['productModel']);
+
         return response([
             'success' => true,
-            'message' => 'Products Retrieved',
-            'data' => $products
+            'message' => 'cart Retrieved',
+            'data' => $cart
         ], 200);
     }
 
@@ -38,6 +39,43 @@ class cartController extends Controller
                 'success' => false,
                 'message' => 'Failed to Add Product',
             ], 400);
+        }
+    }
+
+    public function editCart(Request $request, $id){
+        $cart = cartModel::findOrFail($id);
+
+        if($cart){
+            $cart->update([
+                'quantity' => $request->quantity
+            ]);
+
+            return response([
+                'success' => true,
+                'message' => 'Product Updated',
+                'data' => $cart
+            ]);
+        } else {
+            return response([
+                'success' => false,
+                'message' => 'Product Not Found'
+            ], 404);
+        }
+    }
+
+    public function delCart($id){
+        $cart = cartModel::find($id);
+        if($cart){
+            $cart->delete();
+            return response ([
+                'message' => 'Product Deleted',
+                'code' => 200
+            ]);
+        } else {
+            return response ([
+                'message' => 'Product Not Found',
+                'code' => 400
+            ]);
         }
     }
 }

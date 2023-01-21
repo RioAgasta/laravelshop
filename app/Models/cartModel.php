@@ -14,6 +14,6 @@ class cartModel extends Model
     ];
 
     public function productModel(){
-        
+        return $this->hasOne(productModel::class, 'id', 'product_id');
     }
 }

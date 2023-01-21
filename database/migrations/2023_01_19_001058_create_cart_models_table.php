@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('cart_models', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->string('desc');
+            $table->string('desc')->nullable();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('product_models')->onDelete('restrict');
             $table->timestamps();
