@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class productModel extends Model
+class cartHistory extends Model
 {
     use HasFactory;
 
-    protected $table = "product_models";
+    public $timestamps = false;
+
+    protected $table = "cart_histories";
     protected $fillable = [
-        'code', 'name', 'price', 'image', 'stock'
+        'quantity', 'desc', 'product_id', 'order_id'
     ];
 }

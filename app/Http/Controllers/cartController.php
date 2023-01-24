@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\cartModel;
 use App\Models\productModel;
+use App\Models\cartHistory;
+
 class cartController extends Controller
 {
     //
     public function getCart(){
-        $cart = cartModel::latest()->get()->load(['productModel']);
+        $cart = cartModel::get()->load(['productModel']);
 
         // $cart=cartModel::select('cart_models.*')->join('product_models','product_models.id','=','cart_models.product_id')->get();
         // $cart=productModel::select('product_models.*')->join('cart_models','cart_models.product_id','=','product_models.id')->get();
@@ -77,5 +79,14 @@ class cartController extends Controller
                 'code' => 400
             ]);
         }
+    }
+
+    public function addHistory(){
+        $cart = cartModel::get()->toArray();
+        $history = cartHistory::insert($cart);
+    }
+
+    public function getOrderId($id){
+        $cart = cartModel::where('order_id', NULL)->update(['order_id' => $id]);
     }
 }

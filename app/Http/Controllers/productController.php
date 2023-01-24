@@ -33,7 +33,7 @@ class productController extends Controller
     }
 
     public function getProduct(){
-        $products = productModel::latest()->get();
+        $products = productModel::get();
         return response([
             'success' => true,
             'message' => 'Products Retrieved',

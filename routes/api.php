@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\orderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,11 @@ Route::delete('/delProduct/{id}', [productController::class, 'delProduct']);
 // Cart
 Route::get('/getCart', [cartController::class, 'getCart']);
 Route::post('/addCart', [cartController::class, 'addCart']);
+Route::post('/addHistory', [cartController::class, 'addHistory']);
 Route::delete('/delCart/{id}', [cartController::class, 'delcart']);
 Route::put('/editCart/{id}', [cartController::class, 'editCart']);
+Route::put('/getOrderId/{id}', [cartController::class, 'getOrderId']);
+
+// Order
+Route::get('/getOrder', [orderController::class, 'getOrder']);
+Route::post('/addOrder', [orderController::class, 'addOrder']);
